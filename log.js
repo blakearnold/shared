@@ -70,7 +70,9 @@ exports.sql = function(sql) {
   if ((!this.isSilent && (global.dryRun || global.verbose))  &&
         logLevel & level.sql) {
     var args = Array.prototype.slice.call(arguments).slice(1);
-    args = args.slice(0, args.length - 1);
+    if (typeof arguments[args.length - 1] === 'function') {
+      args = args.slice(0, args.length - 1);
+    }
     if(global.verbose) {
       if(args.length > 0) {
         console.log('[SQL]', sql, args);
